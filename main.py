@@ -41,6 +41,8 @@ from skills import guess_num
 from skills import rulette
 from skills import math
 from skills import crystal_ball
+from skills import random_num
+from skills import timer
 
 
 wrong = ("Прости, я тебя не понимаю.", "Мне кажется ты несёшь какой-то бред.", "Что?", "Ты, наверное, ошибаешься. Я тебя не понимаю.", "Извини, я появился совсем недавно, я пока понимаю очень мало слов.", "Чего?", "А? Что? Я тебя не понимаю.", "Пожалуйста, не говори слов, которых я незнаю.", "Ты пытаешься оскорбить меня этим?", "Не издевайся надо мной, я знаю не так много слов.", "Извини, я не могу тебя понять.", "А?", "Объясни попроще.", "Пожалуйста, прочитай моё описание. Скорее всего я не умею делать то, что ты меня просишь или попробуй использовать синонимы.", "Ты ошибаешься.", "Я не понимаю твоего вопроса.", "Мне не понятен твой вопрос.", "Не могу понять о чём ты говоришь.", "Я не понимаю.", "О чём ты?", "Я не могу распознать вопрос.") # Ответы на неизвестную команду.
@@ -168,6 +170,12 @@ class MainWindow(QtWidgets.QMainWindow, design.Ui_MainWindow, QtWidgets.QListWid
             skillUse = True
             
         elif crystal_ball.main(say, self.listWidget):
+            skillUse = True
+
+        elif random_num.main(say, self.listWidget):
+            skillUse = True
+
+        elif timer.main(say, self.listWidget):
             skillUse = True
         
         elif say == 'stop' or say == 'Stop' or say == 'Стоп' or say == 'стоп':
