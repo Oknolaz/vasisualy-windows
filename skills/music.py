@@ -2,9 +2,10 @@ import random
 import vlc
 import os
 from core import speak
+from core import defaults
 
 inst = vlc.Instance()
-player=inst.media_player_new()
+player = inst.media_player_new()
 is_paused = False
 isInMusicDir = False
 musicIsPlayed = False
@@ -87,17 +88,22 @@ def main(say, widget):
 
 def playFromDir():
     global isInMusicDir, musicIsPlayed, usrPlayer
-    if isInMusicDir:
-        pass
-    else:
-        os.chdir("./music/")
-        isInMusicDir = True
-    playlist = os.listdir()
+    try:
+        appDir = os.path.dirname(os.path.realpath(__file__))
+        os.chdir(f"{appDir}\\..")
+        config = open("vasisualy.conf", "r")
+        for line in config:
+            if "music:" in line:
+                musicDir = line.replace("music:", "")
+    except Exception:
+        musicDir = defaults.defaults["music"]
+    playlist = os.listdir(musicDir) # Получение списка файлов из директории music в корне проекта
     if musicIsPlayed:
         usrPlayer.stop()
-        usrPlayer = vlc.MediaPlayer(random.choice(playlist))
+        usrPlayer = vlc.MediaPlayer(f'{musicDir}\\{random.choice(playlist)}')
         usrPlayer.play()
     else:
-        usrPlayer = vlc.MediaPlayer(random.choice(playlist))
+        # Воспроизведение музыки из папки music
+        usrPlayer = vlc.MediaPlayer(f'{musicDir}\\{random.choice(playlist)}')
         usrPlayer.play()
         musicIsPlayed = True
