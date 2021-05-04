@@ -1,4 +1,4 @@
-from ..core import speak
+from core import speak
 import random
 import vlc
 

@@ -1,4 +1,4 @@
-from ..core import speak
+from core import speak
 from scipy.io.wavfile import write
 import sounddevice
 import vlc

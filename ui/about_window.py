@@ -21,7 +21,7 @@ class Ui_Dialog(object):
         self.image.setGeometry(QtCore.QRect(120, 10, 171, 121))
         self.image.setText("")
         appDir = os.path.dirname(os.path.realpath(__file__))
-        self.image.setPixmap(QtGui.QPixmap(f"{appDir}\\vas.png"))
+        self.image.setPixmap(QtGui.QPixmap("vas.png"))
         self.image.setObjectName("image")
         self.name = QtWidgets.QLabel(Dialog)
         self.name.setGeometry(QtCore.QRect(20, 120, 361, 41))

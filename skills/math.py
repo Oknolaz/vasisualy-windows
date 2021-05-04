@@ -1,4 +1,4 @@
-from ..core import speak
+from core import speak
 from ru_word2number import w2n
 
 trigger = ("Посчитай", "посчитай", "Сколько будет", "сколько будет", "Результат выражения", "результат выражения")

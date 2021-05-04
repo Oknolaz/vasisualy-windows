@@ -120,7 +120,7 @@ class MainWindow(QtWidgets.QMainWindow, design.Ui_MainWindow, QtWidgets.QListWid
         elif search.main(say, self.listWidget):
             skillUse = True
             
-        elif poweroff.main(say):
+        elif poweroff.main(say, self.listWidget):
             skillUse = True
             
         elif ytvideo.main(say, self.listWidget):
@@ -188,7 +188,7 @@ class MainWindow(QtWidgets.QMainWindow, design.Ui_MainWindow, QtWidgets.QListWid
             skillUse = True
         
         elif say == 'stop' or say == 'Stop' or say == 'Стоп' or say == 'стоп':
-            speak.tts_d.stop()
+            pass  # Исправим в будущих релизах
 
         elif isGuessNum:
             isGuessNum = guess_num.game(say, randnum, isGuessNum, self.listWidget)
