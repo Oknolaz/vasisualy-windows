@@ -1,4 +1,4 @@
-import speak
+from . import speak
 import speech_recognition
 from PyQt5 import QtGui
 
