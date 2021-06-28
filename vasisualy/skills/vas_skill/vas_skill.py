@@ -16,7 +16,7 @@ class Skill:
 
     def _get_triggers(self):
         # Считывание триггеров навыка из файла trigger в его директории
-        file = open(f"{str(Path(self.root))}/{self.name}.trigger")
+        file = open(f"{str(Path(self.root))}\\{self.name}.trigger")
         triggers = []
         for line in file:
             if line != "\n":

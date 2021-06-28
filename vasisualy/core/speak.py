@@ -1,7 +1,20 @@
 import pyttsx3
 from threading import Thread
+from . import defaults
 
 engine = pyttsx3.init()
+voices = engine.getProperty("voices")
+
+try:
+    voice = defaults.get_value("voice")
+    for i in voices:
+        if voice == i.name:
+            voice = i
+except FileNotFoundError:
+    voice = None
+
+if voice:
+    engine.setProperty("voice", voice.id)
 
 
 class Speaking(Thread):
