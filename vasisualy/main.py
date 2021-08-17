@@ -8,7 +8,9 @@ from qt_material import apply_stylesheet
 
 # Core
 from .core import (speak, talk, recognise, defaults)
+from .utils.tmpdir import tmp
 import random
+import os
 
 # Skills
 from .skills import (skill_loader, time_date, exit, weather, music, open, screenshot, search, poweroff, ytvideo,
@@ -60,6 +62,7 @@ class MainWindow(QtWidgets.QMainWindow, design.Ui_MainWindow, QtWidgets.QListWid
 
         self.lineEdit.setFocus()
         speak.speak("Привет, меня зовут Васисуалий. Чем могу быть полезен?", self.listWidget)
+
         skill_loader.load()  # Импорт "новых" навыков
 
         self.lineEdit.editingFinished.connect(self.vasmsg)
@@ -88,6 +91,8 @@ class MainWindow(QtWidgets.QMainWindow, design.Ui_MainWindow, QtWidgets.QListWid
         self.program()
         
     def program(self):
+        global tmp
+
         say = self.say
         skillUse = False
         
@@ -97,8 +102,17 @@ class MainWindow(QtWidgets.QMainWindow, design.Ui_MainWindow, QtWidgets.QListWid
             item = QtWidgets.QListWidgetItem(say)
             item.setTextAlignment(0x0002)
             self.listWidget.addItem(item)
+
+        if os.path.exists(f"{tmp}/.skill_lock"):
+            # Если файл блокировки существует - сообщение пользователя
+            # передаётся запущенному циклу навыка.
+            skill_loader.run_looped(say, self.listWidget)
+            skillUse = True
             
-        if old_skills.old_skills_activate(say, self.listWidget, self):
+        elif skill_loader.run_skills(say, self.listWidget):
+            skillUse = True
+            
+        elif old_skills.old_skills_activate(say, self.listWidget, self):
             skillUse = True
             
         elif guess_num.isTriggered(say):
@@ -111,9 +125,6 @@ class MainWindow(QtWidgets.QMainWindow, design.Ui_MainWindow, QtWidgets.QListWid
             skillUse = True
             global isRuLette
             isRuLette = rulette.startGame(self.listWidget)
-            
-        elif skill_loader.run_skills(say, self.listWidget):
-            skillUse = True
 
         elif say == 'stop' or say == 'Stop' or say == 'Стоп' or say == 'стоп':
             speak.tts_d.stop()
@@ -137,6 +148,7 @@ class MainWindow(QtWidgets.QMainWindow, design.Ui_MainWindow, QtWidgets.QListWid
 def main():
     app = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
+
     try:
         theme = defaults.get_value("theme")
     except FileNotFoundError:
