@@ -8,7 +8,7 @@ from qt_material import apply_stylesheet
 
 # Core
 from .core import (speak, talk, recognise, defaults)
-from .utils.tmpdir import tmp
+import vasisualy.utils as utils
 import random
 import os
 
@@ -91,7 +91,7 @@ class MainWindow(QtWidgets.QMainWindow, design.Ui_MainWindow, QtWidgets.QListWid
         self.program()
         
     def program(self):
-        global tmp
+        tmp = utils.tmp
 
         say = self.say
         skillUse = False

@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 import json
 import tempfile
-from vasisualy.utils.tmpdir import tmp
+from vasisualy.utils import tmp
 
 
 class Skill:
