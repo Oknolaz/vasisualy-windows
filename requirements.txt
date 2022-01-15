@@ -1,0 +1,17 @@
+pyowm
+python-vlc
+translate
+wikipedia
+mss
+qt-material
+geocoder
+beautifulsoup4
+lxml
+speechrecognition
+pyqt5
+pyqtwebengine
+scipy
+sounddevice
+plyer
+ru_word2number
+fuzzywuzzy

@@ -4,6 +4,7 @@ from pathlib import Path
 import json
 import tempfile
 from vasisualy.utils import tmp
+from fuzzywuzzy import fuzz
 
 
 class Skill:
@@ -54,18 +55,19 @@ class Skill:
     def _is_triggered(user_message, triggers):
         # Проверяет соответствует ли сообщение, переданное пользователем, триггеру.
         for trigger in triggers:
-            if trigger in user_message:
+            if fuzz.partial_ratio(user_message, trigger) > 75:
                 triggered = True
                 break
             else:
                 triggered = False
         return triggered
 
+    @staticmethod
     def _is_triggered_to_exit(self, user_message, triggers):
         if self.loop:
             # Проверяет соответствует ли сообщение, переданное пользователем, триггеру выхода из цикла.
             for trigger in triggers:
-                if trigger in user_message:
+                if fuzz.partial_ratio(user_message, trigger) > 90:
                     triggered = True
                     break
                 else:
