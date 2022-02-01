@@ -39,7 +39,9 @@ class Skill:
         file = open(f"{str(Path(self.root))}/{self.name}.trigger")
         triggers = []
         for line in file:
-            if line != "\n":
+            if "e:" in line:
+                continue
+            elif line != "\n":
                 triggers.append(line.replace("\n", ''))
         return triggers
 
